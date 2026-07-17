@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORION Test</title>
+
+<style>
+body {
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:20px;
+}
+
+#chat {
+    background:#222;
+    padding:15px;
+    border-radius:10px;
+    min-height:300px;
+}
+
+button,input {
+    padding:12px;
+    margin-top:10px;
+}
+
+input {
+    width:70%;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🧠 ORION v0.4</h1>
+
+<div id="chat">
+ORION gestart...
+</div>
+
+<input id="vraag" placeholder="Typ iets...">
+<button onclick="vraag()">Stuur</button>
+
+
+<script src="orion_brain.js"></script>
+
+<script>
+
+function vraag(){
+
+let tekst =
+document.getElementById("vraag").value;
+
+
+let antwoord =
+ORION_Request(tekst);
+
+
+document.getElementById("chat").innerHTML +=
+"<p><b>Jij:</b> "
++ tekst +
+"</p><p><b>ORION:</b> "
++ antwoord +
+"</p>";
+
+}
+
+</script>
+
+</body>
+</html>
