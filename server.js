@@ -11,7 +11,6 @@ const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-
 app.post("/chat", async (req, res) => {
 
     try {
@@ -19,49 +18,31 @@ app.post("/chat", async (req, res) => {
         const message = req.body.message;
 
         const response = await client.responses.create({
-
             model: "gpt-5.5-mini",
-
-            input: [
-                {
-                    role: "system",
-                    content:
-                    "Je bent ORION, een persoonlijke AI-orchestrator. Help de gebruiker duidelijk en praktisch."
-                },
-                {
-                    role: "user",
-                    content: message
-                }
-            ]
-
+            input: message
         });
-
 
         res.json({
             answer: response.output_text
         });
 
+    } catch (error) {
 
-    } catch(error) {
+        console.log(error);
 
-        res.json({
-            answer: "ORION heeft een verbindingsprobleem."
+        res.status(500).json({
+            answer: "AI fout: " + error.message
         });
 
     }
 
 });
 
-
 app.get("/", (req,res)=>{
     res.send("ORION AI core actief");
 });
 
 
-app.listen(3000, ()=>{
-
-    console.log(
-        "ORION AI server gestart"
-    );
-
+app.listen(process.env.PORT || 3000, ()=>{
+    console.log("ORION AI server gestart");
 });
